@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/account-service/account-service.iml" filepath="$PROJECT_DIR$/account-service/account-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/account-service/account-service-fitness.iml" filepath="$PROJECT_DIR$/account-service/account-service-fitness.iml" />
       <module fileurl="file://$PROJECT_DIR$/home-fitness.iml" filepath="$PROJECT_DIR$/home-fitness.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webflux-fitness.iml" filepath="$PROJECT_DIR$/webflux-fitness.iml" />
     </modules>
   </component>
 </project>
