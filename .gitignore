@@ -33,3 +33,4 @@ build/
 /.mvn
 .idea
 .mvn
+/Logs/log4j.log

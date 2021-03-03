@@ -1,8 +1,12 @@
 package com.fitness.accountservice.web;
 
 import com.fitness.accountservice.models.User;
+import com.fitness.accountservice.models.payload.SignupRequest;
+import com.fitness.accountservice.models.payload.SignupResponse;
 import com.fitness.accountservice.repositories.UserRepository;
+import com.fitness.accountservice.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.apache.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -11,18 +15,24 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.lang.invoke.MethodHandles;
+
 
 @Component
 @RequiredArgsConstructor
 class UsersHandler {
     private final UserRepository userRepository;
     private MediaType json = MediaType.APPLICATION_JSON;
+    private final UserService service;
+    private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass());
 
-    public Mono<ServerResponse> searchAllUsers(ServerRequest request) {
+    public Mono<ServerResponse> searchAllUsers() {
         Flux<User> users = userRepository.findAll();
+        Mono<ServerResponse> notFound = ServerResponse.notFound().build();
         return ServerResponse.ok()
                 .contentType(json)
-                .body(users, User.class);
+                .body(users, User.class)
+                .switchIfEmpty(notFound);
     }
 
     //Get User by ID
@@ -42,19 +52,10 @@ class UsersHandler {
 
     //Update user by ID
     public Mono<ServerResponse> updateUser(ServerRequest request) {
-        String id = request.pathVariable("id");
-        Mono<User> existingUserMono = this.userRepository.findById(id);
-        Mono<User> userMono = request.bodyToMono(User.class);
-        Mono<ServerResponse> notFound = ServerResponse.notFound().build();
-        return userMono.zipWith(existingUserMono,
-                (user, existingUser) ->
-                        new User(existingUser.getUserId(), user.getEmail(), user.getHash(), user.getSalt(), user.getSecretKey())
-        )
-                .flatMap(user ->
-                        ServerResponse.ok()
-                                .contentType(json)
-                                .body(userRepository.save(user), User.class)
-                ).switchIfEmpty(notFound);
+        Mono<SignupRequest> body = request.bodyToMono(SignupRequest.class);
+        Mono<SignupResponse> result = body.flatMap(service::updateUser);
+        return result.flatMap(data -> ServerResponse.ok().contentType(json).bodyValue(data))
+                .onErrorResume(error -> ServerResponse.badRequest().build());
     }
 
     //Delete user by id

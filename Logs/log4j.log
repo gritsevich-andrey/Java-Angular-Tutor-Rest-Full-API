@@ -352,3 +352,7 @@
 2021-02-24 20:26:04 INFO  AuthServiceImpl:49 - Users save in BD
 2021-02-25 13:38:19 INFO  AuthServiceImpl:49 - Users save in BD
 2021-02-25 18:49:34 INFO  AuthServiceImpl:49 - Users save in BD
+2021-03-03 15:39:26 INFO  AuthServiceImpl:54 - Users save in BD
+2021-03-03 16:05:06 INFO  UsersController:26 - findByLesson: %s
+2021-03-03 16:05:38 INFO  UsersController:26 - findByLesson: %s
+2021-03-03 16:08:31 INFO  UsersController:26 - findByLesson: %s

@@ -24,7 +24,7 @@ public class Router {
     @Bean
     public RouterFunction<ServerResponse> usersEndpoint (UsersHandler handler){
         return RouterFunctions
-                .route(GET("/users").and(accept(json)), handler::searchAllUsers)
+                .route(GET("/users").and(accept(json)), request -> handler.searchAllUsers())
                 .andRoute(GET("/users/{id}").and(accept(json)), handler::getUserById)
                 .andRoute(PUT("/users/{id}").and(accept(json)), handler::updateUser)
                 .andRoute(DELETE("/users/{id}").and(accept(json)), handler::deleteUserById);

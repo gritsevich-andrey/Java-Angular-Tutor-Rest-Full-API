@@ -9,12 +9,18 @@
         <outputRelativeToContentRoot value="true" />
         <module name="account-service" />
         <module name="account-service-fitness" />
+        <module name="discovery-server-service" />
+        <module name="lesson-service" />
+        <module name="gateway-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="account-service" target="11" />
       <module name="account-service-fitness" target="11" />
+      <module name="discovery-server-service" target="11" />
+      <module name="gateway-service" target="11" />
       <module name="home-fitness" target="11" />
+      <module name="lesson-service" target="11" />
       <module name="webflux-fitness" target="11" />
     </bytecodeTargetLevel>
   </component>
@@ -22,7 +28,10 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="account-service" options="-parameters" />
       <module name="account-service-fitness" options="-parameters" />
+      <module name="discovery-server-service" options="-parameters" />
+      <module name="gateway-service" options="-parameters" />
       <module name="home-fitness" options="-parameters" />
+      <module name="lesson-service" options="-parameters" />
     </option>
   </component>
 </project>

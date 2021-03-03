@@ -16,8 +16,11 @@ public class SecurityConfig {
             ServerHttpSecurity http) {
         return http
                 .csrf().disable()
+                .httpBasic().disable()
                 .authorizeExchange()
-                .pathMatchers("/users","/users/**", "/login", "/register").permitAll()
+                .pathMatchers("/users", "/lessons", "/lessons/**",
+                        "/users/**", "/login", "/register","/actuator"
+                        ,"/actuator/**", "localhost:8081/**").permitAll()
                 .and()
                 .build();
     }

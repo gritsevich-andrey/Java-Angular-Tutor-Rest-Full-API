@@ -4,6 +4,7 @@ import com.fitness.accountservice.errors.AlreadyExistsException;
 import com.fitness.accountservice.errors.LoginDeniedException;
 import com.fitness.accountservice.managers.TokenManager;
 import com.fitness.accountservice.managers.TotpManager;
+import com.fitness.accountservice.models.Role;
 import com.fitness.accountservice.models.User;
 import com.fitness.accountservice.models.payload.LoginRequest;
 import com.fitness.accountservice.models.payload.LoginResponse;
@@ -15,10 +16,13 @@ import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import reactor.core.publisher.Mono;
 
 
 import java.lang.invoke.MethodHandles;
+import java.util.Collections;
+import java.util.List;
 
 @Component("AuthService")
 @AllArgsConstructor
@@ -30,13 +34,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public Mono<SignupResponse> signup(SignupRequest request) {
-
         String email = request.getEmail().trim().toLowerCase();
+        String lessonId = request.getLessonId();
+        List<Role> roles = request.getRoles();
         String password = request.getPassword();
         String salt = BCrypt.gensalt();
         String hash = BCrypt.hashpw(password, salt);
         String secret = totpManager.generateSecret();
-        User user = new User(null, email, hash, salt, secret);
+        User user = new User(null, email, lessonId,  hash, salt, secret, roles);
 
         Mono<SignupResponse> response = repository.findByEmail(email)
                 .defaultIfEmpty(user)
@@ -45,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
                         return repository.save(result).flatMap(result2 -> {
                             String userId = result2.getUserId();
                             String token = tokenManager.issueToken(userId);
-                            SignupResponse signupResponse = new SignupResponse(userId, token, secret);
+                            SignupResponse signupResponse = new SignupResponse(userId, token, secret,roles);
                             log.info("Users save in BD");
                             return Mono.just(signupResponse);
                         });
