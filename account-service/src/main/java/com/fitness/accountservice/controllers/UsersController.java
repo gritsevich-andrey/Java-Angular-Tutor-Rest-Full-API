@@ -1,6 +1,7 @@
 package com.fitness.accountservice.controllers;//package tech.home.fitness.controllers;
 
 
+import com.fitness.accountservice.models.Role;
 import com.fitness.accountservice.models.User;
 import com.fitness.accountservice.repositories.UserRepository;
 import org.apache.log4j.Logger;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8081"})
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class UsersController {
     private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass());
     @Autowired
@@ -27,5 +30,11 @@ public class UsersController {
         return userRepository.findByLessonId(lessonId);
     }
 
+    @GetMapping("/instructors")
+    public Flux<User> findInstructors() {
+        List<Role> roleList = new ArrayList<>();
+        roleList.add(Role.INSTRUCTOR);
+        return userRepository.findUserByRoles(roleList);
+    }
 }
 
