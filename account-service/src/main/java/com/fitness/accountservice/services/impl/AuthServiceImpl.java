@@ -50,12 +50,12 @@ public class AuthServiceImpl implements AuthService {
                         return repository.save(result).flatMap(result2 -> {
                             String userId = result2.getUserId();
                             String token = tokenManager.issueToken(userId);
-                            SignupResponse signupResponse = new SignupResponse(userId, token, secret,roles);
+                            SignupResponse signupResponse = new SignupResponse(userId, token);
                             log.info("Users save in BD");
                             return Mono.just(signupResponse);
                         });
                     } else {
-                        return Mono.error(new AlreadyExistsException());
+                        return Mono.error(new AlreadyExistsException("Error signup"));
                     }
                 });
         return response;

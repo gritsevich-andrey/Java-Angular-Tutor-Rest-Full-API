@@ -51,9 +51,9 @@ class UsersHandler {
     }
 
     //Update user by ID
-    public Mono<ServerResponse> updateUser(ServerRequest request) {
+    public Mono<ServerResponse> updateUserRole(ServerRequest request) {
         Mono<SignupRequest> body = request.bodyToMono(SignupRequest.class);
-        Mono<SignupResponse> result = body.flatMap(service::updateUser);
+        Mono<SignupResponse> result = body.flatMap(service::updateUserRole);
         return result.flatMap(data -> ServerResponse.ok().contentType(json).bodyValue(data))
                 .onErrorResume(error -> ServerResponse.badRequest().build());
     }

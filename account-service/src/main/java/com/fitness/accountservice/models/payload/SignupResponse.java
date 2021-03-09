@@ -12,7 +12,7 @@ public class SignupResponse {
 
     private String userId;
     private String token;
-    private String secretKey;
-    private List<Role> roles;
+//    private String secretKey;
+//    private List<Role> roles;
 
 }

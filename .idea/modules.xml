@@ -7,7 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/discovery-server-service/discovery-server-service.iml" filepath="$PROJECT_DIR$/discovery-server-service/discovery-server-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/gateway-service/gateway-service.iml" filepath="$PROJECT_DIR$/gateway-service/gateway-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/home-fitness.iml" filepath="$PROJECT_DIR$/home-fitness.iml" />
-      <module fileurl="file://$PROJECT_DIR$/instructor-service/instructors-service.iml" filepath="$PROJECT_DIR$/instructor-service/instructors-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/instructor-service/instructor-service.iml" filepath="$PROJECT_DIR$/instructor-service/instructor-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/lesson-service/lesson-service.iml" filepath="$PROJECT_DIR$/lesson-service/lesson-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/webflux-fitness.iml" filepath="$PROJECT_DIR$/webflux-fitness.iml" />
     </modules>

@@ -7,5 +7,5 @@ import reactor.core.publisher.Mono;
 
 @Service
 public interface UserService {
-    Mono<SignupResponse> updateUser (SignupRequest request);
+    Mono<SignupResponse> updateUserRole (SignupRequest request);
 }

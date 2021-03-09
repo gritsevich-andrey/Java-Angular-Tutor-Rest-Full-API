@@ -10,9 +10,9 @@
         <module name="account-service-fitness" />
         <module name="account-service" />
         <module name="lesson-service" />
+        <module name="instructor-service" />
         <module name="discovery-server-service" />
         <module name="gateway-service" />
-        <module name="instructors-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -22,7 +22,6 @@
       <module name="gateway-service" target="11" />
       <module name="home-fitness" target="11" />
       <module name="instructor-service" target="11" />
-      <module name="instructors-service" target="11" />
       <module name="lesson-service" target="11" />
       <module name="webflux-fitness" target="11" />
     </bytecodeTargetLevel>
@@ -35,7 +34,6 @@
       <module name="gateway-service" options="-parameters" />
       <module name="home-fitness" options="-parameters" />
       <module name="instructor-service" options="-parameters" />
-      <module name="instructors-service" options="-parameters" />
       <module name="lesson-service" options="-parameters" />
     </option>
   </component>

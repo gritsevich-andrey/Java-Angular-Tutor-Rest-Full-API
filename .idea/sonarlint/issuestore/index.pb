@@ -66,3 +66,5 @@ F
 lesson-service/pom.xml,8\d\8dd2ced197a9bd7086460f9706aea824697563b7
 „
 Tlesson-service/src/main/java/com/fitness/lessonservice/LessonServiceApplication.java,2\a\2ad1369d4fbf3183996caa9f13eb4617420e4818
+J
+instructor-service/pom.xml,2\d\2d1fc639a3f4e1930820bcdd86ab127d30296b4a

@@ -21,32 +21,28 @@ import java.util.List;
 @Component("UserService")
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    private TotpManager totpManager;
     private TokenManager tokenManager;
     private UserRepository repository;
     private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass());
+
     @Override
-    public Mono<SignupResponse> updateUser(SignupRequest request) {
-        String email = request.getEmail();
+    public Mono<SignupResponse> updateUserRole(SignupRequest request) {
+        String userId = request.getUserId();
         List<Role> roles = request.getRoles();
-        String password = request.getPassword();
-        String salt = BCrypt.gensalt();
-        String hash = BCrypt.hashpw(password, salt);
-        String secret = totpManager.generateSecret();
-//        User user = new User(null, email,  hash, salt, secret, roles);
-        Mono<SignupResponse> response = repository.findByEmail(email)
+        Mono<SignupResponse> response = repository.findByUserId(userId)
                 .flatMap(result -> {
                     if (result.getUserId() != null) {
-                        return repository.save(new User(null, email,  hash, salt, secret, roles))
+                        return repository.save(new User(userId, result.getEmail(), result.getHash(), result.getSalt(), result.getSecretKey(), roles))
                                 .flatMap(result2 -> {
-                            String userId = result2.getUserId();
-                            String token = tokenManager.issueToken(userId);
-                            SignupResponse signupResponse = new SignupResponse(userId, token, secret,roles);
-                            log.info("Users update BD");
-                            return Mono.just(signupResponse);
-                        });
+                                    String token = tokenManager.issueToken(userId);
+                                    SignupResponse signupResponse = new SignupResponse(userId, token);
+                                    log.info("Users update in BD");
+                                    return Mono.just(signupResponse);
+                                });
                     } else {
-                        return Mono.error(new AlreadyExistsException());
+                        log.error("Ошибка создания пользователя");
+                        return Mono.error(new AlreadyExistsException("Error update user"));
+
                     }
                 });
         return response;
