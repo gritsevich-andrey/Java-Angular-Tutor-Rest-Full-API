@@ -14,11 +14,9 @@ import java.util.List;
 @EnableReactiveMongoRepositories
 public interface UserRepository extends ReactiveMongoRepository<User, String> {
 
-    Mono<User> findByEmail(String email);
+    Mono<User> findByEmail (String email);
+    Mono<User> findByUserId (String userId);
+    Flux<User> findByLessonId (String lessonId);
+    Flux<User> findUserByRoles (List<Role> roles);
 
-    Mono<User> findByUserId(String userId);
-
-    Flux<User> findByLessonId(String lessonId);
-
-    Flux<User> findUserByRoles(List<Role> roles);
 }

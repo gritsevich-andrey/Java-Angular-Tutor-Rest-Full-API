@@ -1,11 +1,13 @@
 package com.fitness.accountservice.models.payload;
 
+import com.fitness.accountservice.models.Role;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class LoginResponse {
-
-//    private boolean success;
     private String userId;
     private String token;
+    private List<Role> roles;
 }

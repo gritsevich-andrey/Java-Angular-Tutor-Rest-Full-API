@@ -8,8 +8,8 @@
 		<module>discovery-server-service</module>
 		<module>gateway-service</module>
 		<module>lesson-service</module>
-		<module>instructor-service</module>
-	</modules>
+        <module>instructor-service</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

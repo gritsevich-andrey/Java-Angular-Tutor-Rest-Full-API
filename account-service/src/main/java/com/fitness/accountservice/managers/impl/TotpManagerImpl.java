@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class TotpManagerImpl implements TotpManager {
     @Override
     public String generateSecret() {
-        SecretGenerator generator = new DefaultSecretGenerator();
+        SecretGenerator generator = new DefaultSecretGenerator(64);
         return generator.generate();
     }
 

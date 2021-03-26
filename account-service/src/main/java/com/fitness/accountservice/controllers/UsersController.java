@@ -19,14 +19,13 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200"})
 public class UsersController {
-    private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass());
+    // --Commented out by Inspection (10.03.2021 23:32):private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass());
     @Autowired
     private UserRepository userRepository;
 
 
     @GetMapping("/lessons/{lesson}")
     public Flux<User> findByLesson(@PathVariable("lesson") String lessonId) {
-        log.info("findByLesson: %s");
         return userRepository.findByLessonId(lessonId);
     }
 
@@ -36,5 +35,6 @@ public class UsersController {
         roleList.add(Role.INSTRUCTOR);
         return userRepository.findUserByRoles(roleList);
     }
+
 }
 

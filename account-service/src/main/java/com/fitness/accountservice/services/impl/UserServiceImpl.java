@@ -8,10 +8,11 @@ import com.fitness.accountservice.models.User;
 import com.fitness.accountservice.models.payload.SignupRequest;
 import com.fitness.accountservice.models.payload.SignupResponse;
 import com.fitness.accountservice.repositories.UserRepository;
+import com.fitness.accountservice.services.MailSender;
 import com.fitness.accountservice.services.UserService;
 import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
@@ -21,12 +22,15 @@ import java.util.List;
 @Component("UserService")
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
+    @Autowired
+    private MailSender mailSender;
     private TokenManager tokenManager;
     private UserRepository repository;
     private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass());
 
     @Override
     public Mono<SignupResponse> updateUserRole(SignupRequest request) {
+
         String userId = request.getUserId();
         List<Role> roles = request.getRoles();
         Mono<SignupResponse> response = repository.findByUserId(userId)

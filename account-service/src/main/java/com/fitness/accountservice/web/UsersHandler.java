@@ -22,7 +22,7 @@ import java.lang.invoke.MethodHandles;
 @RequiredArgsConstructor
 class UsersHandler {
     private final UserRepository userRepository;
-    private MediaType json = MediaType.APPLICATION_JSON;
+    private final static MediaType json = MediaType.APPLICATION_JSON;
     private final UserService service;
     private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -35,7 +35,6 @@ class UsersHandler {
                 .switchIfEmpty(notFound);
     }
 
-    //Get User by ID
     public Mono<ServerResponse> getUserById(ServerRequest request) {
         String id = request.pathVariable("id");
 
@@ -45,7 +44,7 @@ class UsersHandler {
         return userMono.flatMap(user ->
                 ServerResponse.ok()
                         .contentType(json)
-                        .body(BodyInserters.fromObject(user))
+                        .bodyValue(user)
                         .switchIfEmpty(notFound)
         );
     }

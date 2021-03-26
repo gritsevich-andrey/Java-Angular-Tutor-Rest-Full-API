@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
 import java.lang.invoke.MethodHandles;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8080"})
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class LessonController {
 private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass());
     @Autowired
@@ -26,12 +26,11 @@ private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookup
 
     @GetMapping("/lessons/{id}/with-accounts")
     public Mono<Lesson> findByIdWithAccounts(@PathVariable("id") String id) {
-        log.info("findByIdLessonWithAccounts: id={}");
         Flux<User> accounts = webClientBuilder.build().get().uri("http://account-service/lessons/{lesson}", id)
                 .retrieve().bodyToFlux(User.class);
         return accounts
                 .collectList()
-                .map(a -> new Lesson(a))
+                .map(Lesson::new)
                 .mergeWith(repository.findById(id))
                 .collectList()
                 .map(LessonMapper::map);

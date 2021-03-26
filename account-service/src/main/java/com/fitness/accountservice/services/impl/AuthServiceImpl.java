@@ -16,21 +16,18 @@ import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 import reactor.core.publisher.Mono;
 
-
 import java.lang.invoke.MethodHandles;
-import java.util.Collections;
 import java.util.List;
 
 @Component("AuthService")
 @AllArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass());
-    private TokenManager tokenManager;
-    private TotpManager totpManager;
-    private UserRepository repository;
+    private final TokenManager tokenManager;
+    private final TotpManager totpManager;
+    private final UserRepository repository;
 
     @Override
     public Mono<SignupResponse> signup(SignupRequest request) {
@@ -63,6 +60,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public Mono<LoginResponse> login(LoginRequest request) {
+
         String email = request.getEmail().trim().toLowerCase();
         String password = request.getPassword();
         Mono<LoginResponse> response = repository.findByEmail(email)
@@ -71,7 +69,6 @@ public class AuthServiceImpl implements AuthService {
                     if (user.getUserId() == null) {
                         return Mono.empty();
                     } else {
-                        // user exists
                         String salt = user.getSalt();
                         String secret = user.getSecretKey();
                         boolean passwordMatch = BCrypt.hashpw(password, salt).equalsIgnoreCase(user.getHash());
@@ -82,12 +79,13 @@ public class AuthServiceImpl implements AuthService {
                                 LoginResponse loginResponse = new LoginResponse();
                                 loginResponse.setToken(token);
                                 loginResponse.setUserId(user.getUserId());
+                                loginResponse.setRoles(user.getRoles());
                                 return Mono.just(loginResponse);
                             } else {
-                                return Mono.error(new LoginDeniedException());
+                                return Mono.error(new LoginDeniedException("Error authorization"));
                             }
                         } else {
-                            return Mono.error(new LoginDeniedException());
+                            return Mono.error(new LoginDeniedException("Error authorization"));
                         }
                     }
                 });

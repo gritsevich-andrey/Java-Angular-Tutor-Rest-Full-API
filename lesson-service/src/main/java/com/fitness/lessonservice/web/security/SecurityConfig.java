@@ -15,11 +15,15 @@ public class SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(
             ServerHttpSecurity http) {
         return http
+                .headers(headers -> headers
+                        .cache(cache -> cache.disable()
+                        )
+                )
                 .csrf().disable()
                 .httpBasic().disable()
                 .authorizeExchange()
-                .pathMatchers("/lessons", "/lessons/**",
-                        "/actuator","/actuator/**").permitAll()
+                .pathMatchers("/lessons**", "/lessons/**","/lessons/history/**",
+                        "/actuator", "/actuator/**").permitAll()
                 .and()
                 .build();
     }

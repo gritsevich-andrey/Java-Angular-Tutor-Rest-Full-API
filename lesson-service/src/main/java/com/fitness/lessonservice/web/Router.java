@@ -11,7 +11,7 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 
 @Configuration
 public class Router {
-    private MediaType json = MediaType.APPLICATION_JSON;
+    private final MediaType json = MediaType.APPLICATION_JSON;
 
     @Bean
     public RouterFunction<ServerResponse> lessonsEndpoint (LessonsHandler handler){
