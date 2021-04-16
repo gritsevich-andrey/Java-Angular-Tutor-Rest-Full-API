@@ -7,16 +7,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="account-service" />
-        <module name="discovery-server-service" />
-        <module name="gateway-service" />
+        <module name="chat-service" />
+        <module name="discovery-server" />
         <module name="lesson-service" />
+        <module name="account-service" />
         <module name="instructor-service" />
+        <module name="gateway-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="account-service" target="11" />
       <module name="account-service-fitness" target="11" />
+      <module name="Admin-boot-server" target="11" />
+      <module name="admin-server" target="11" />
+      <module name="chat-service" target="11" />
+      <module name="discovery-server" target="11" />
       <module name="discovery-server-service" target="11" />
       <module name="gateway-service" target="11" />
       <module name="home-fitness" target="11" />
@@ -29,6 +34,9 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="account-service" options="-parameters" />
       <module name="account-service-fitness" options="-parameters" />
+      <module name="admin-server" options="-parameters" />
+      <module name="chat-service" options="-parameters" />
+      <module name="discovery-server" options="-parameters" />
       <module name="discovery-server-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
       <module name="home-fitness" options="-parameters" />

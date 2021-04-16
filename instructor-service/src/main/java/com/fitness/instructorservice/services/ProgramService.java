@@ -1,20 +1,22 @@
 package com.fitness.instructorservice.services;
 
+import com.fitness.instructorservice.dto.ProgramDto;
 import com.fitness.instructorservice.models.Program;
-import com.fitness.instructorservice.web.payload.ProgramRequest;
-import com.fitness.instructorservice.web.payload.ProgramResponse;
+import com.fitness.instructorservice.models.ProgramCategory;
+import com.fitness.instructorservice.dto.ProgramRequest;
+import com.fitness.instructorservice.dto.ProgramResponse;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
 @Service
 public interface ProgramService {
     Mono<ProgramResponse> createProgram(ProgramRequest request);
-
+    Flux<ProgramDto> getAllPrograms();
     Mono<Program> findById(String id);
-
-    Flux<Program> findAll();
-
     Mono<Void> deleteById(String id);
-
     Flux<ProgramResponse> findByCategory(String category);
+    Mono<Void> saveProgramAndCategory(Mono<Program> programMono, Mono<ProgramCategory> categoryMono);
+    Mono<Program> updateProgram(Program program);
+    Flux<Program> findInstructorQueryDistinct(String category);
 }

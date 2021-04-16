@@ -1,28 +1,28 @@
 package com.fitness.accountservice.models;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotBlank;
+import org.intellij.lang.annotations.Pattern;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "users")
-public class User {
-
+public class User extends AbstractDocument<String> implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     private String userId;
-    @Email(message = "It should have email format")
-    @NotBlank(message = "User email is required")
-    @Valid
+    @Indexed(unique = true)
     private String email;
     private String lessonId;
     private String hash;
@@ -32,21 +32,25 @@ public class User {
     //    @DBRef(lazy = true)
     private List<Role> roles = new ArrayList<>();
 
-    public User(String userId, String email, String hash, String salt, String secret, List<Role> roles) {
+    private UserProfile profile;
+
+    public User(String userId, @NotNull String email, String hash, String salt, String secret, List<Role> roles, UserProfile profile) {
         this.userId = userId;
         this.email = email;
         this.hash = hash;
         this.salt = salt;
         this.secretKey = secret;
         this.roles = roles;
+        this.profile = profile;
     }
-
 
 
     public List<Role> getRoles() {
         return roles;
     }
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+
+    @Override
+    public String getId() {
+        return this.userId;
     }
 }

@@ -16,14 +16,14 @@ public class SecurityConfig {
             ServerHttpSecurity http) {
         return http
                 .headers(headers -> headers
-                        .cache(cache -> cache.disable()
+                        .cache(ServerHttpSecurity.HeaderSpec.CacheSpec::disable
                         )
                 )
                 .csrf().disable()
                 .httpBasic().disable()
                 .authorizeExchange()
-                .pathMatchers("/lessons**", "/lessons/**","/lessons/history/**",
-                        "/actuator", "/actuator/**").permitAll()
+                .pathMatchers("/lessons**", "/lessons/**", "/lessons/history/**",
+                        "/actuator", "/actuator/**","/**").permitAll()
                 .and()
                 .build();
     }

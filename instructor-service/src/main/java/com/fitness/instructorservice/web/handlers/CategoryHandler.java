@@ -25,7 +25,9 @@ public class CategoryHandler {
     }
 
     public Mono<ServerResponse> findAll(ServerRequest request) {
-        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(programCategoryService.findAll(), ProgramCategory.class);
+        return ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(programCategoryService.findAll(), ProgramCategory.class);
     }
 
     public Mono<ServerResponse> findById(ServerRequest request) {
@@ -33,7 +35,8 @@ public class CategoryHandler {
         String id = request.pathVariable("id");
 
         return programCategoryService.findById(id)
-                .flatMap(data -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(data))
+                .flatMap(data -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                        .bodyValue(data))
                 .switchIfEmpty(ServerResponse.notFound().build());
 
     }

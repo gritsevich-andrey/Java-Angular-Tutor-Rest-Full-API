@@ -8,10 +8,10 @@ import reactor.core.publisher.Mono;
 
 public interface AuthService {
 
-    Mono<SignupResponse> signup (SignupRequest request);
+    Mono<SignupResponse> signup(SignupRequest request);
 
-    Mono<LoginResponse> login (LoginRequest request);
+    Mono<LoginResponse> login(LoginRequest request);
 
-    Mono<String> parseToken (String token);
+    Mono<String> parseToken(String token);
 
 }

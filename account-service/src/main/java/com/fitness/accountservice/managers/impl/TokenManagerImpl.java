@@ -24,8 +24,8 @@ public class TokenManagerImpl implements TokenManager {
 
     private RSAKey key;
 
-    public TokenManagerImpl() throws Exception{
-        key =  new RSAKeyGenerator(2048).keyID(UUID.randomUUID().toString()).generate();
+    public TokenManagerImpl() throws Exception {
+        key = new RSAKeyGenerator(2048).keyID(UUID.randomUUID().toString()).generate();
     }
 
     @Override
@@ -38,7 +38,7 @@ public class TokenManagerImpl implements TokenManager {
             String token = signedJWT.serialize();
             return token;
 
-        } catch (Exception ex){
+        } catch (Exception ex) {
 
             return null;
 
@@ -52,13 +52,13 @@ public class TokenManagerImpl implements TokenManager {
             RSAPublicKey publicKey = key.toRSAPublicKey();
             JWSVerifier verifier = new RSASSAVerifier(publicKey);
             boolean success = signedJWT.verify(verifier);
-            if (success){
+            if (success) {
                 String userId = signedJWT.getJWTClaimsSet().getSubject();
                 return Mono.just(userId);
             } else {
                 return Mono.error(InvalidTokenException::new);
             }
-        } catch (Exception ex){
+        } catch (Exception ex) {
             return Mono.error(InvalidTokenException::new);
         }
     }

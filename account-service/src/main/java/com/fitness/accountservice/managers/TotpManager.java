@@ -2,8 +2,8 @@ package com.fitness.accountservice.managers;
 
 public interface TotpManager {
 
-    String generateSecret ();
+    String generateSecret();
 
-    boolean validateCode (String secret);
+    boolean validateCode(String secret);
 
 }

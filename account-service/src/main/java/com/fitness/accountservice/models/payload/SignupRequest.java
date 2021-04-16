@@ -1,6 +1,7 @@
 package com.fitness.accountservice.models.payload;
 
 import com.fitness.accountservice.models.Role;
+import com.fitness.accountservice.models.UserProfile;
 import lombok.Data;
 
 import javax.validation.Valid;
@@ -20,4 +21,5 @@ public class SignupRequest {
     private String password;
     private String lessonId;
     private List<Role> roles;
+    private UserProfile profile;
 }

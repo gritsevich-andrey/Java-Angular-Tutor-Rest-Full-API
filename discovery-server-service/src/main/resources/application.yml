@@ -4,7 +4,7 @@ server:
 spring:
   application:
     name: discovery-service
-    
+
 eureka:
   server:
     enableSelfPreservation: true
@@ -16,3 +16,6 @@ eureka:
     fetchRegistry: false
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}

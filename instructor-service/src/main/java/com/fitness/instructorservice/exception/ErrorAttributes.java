@@ -21,7 +21,7 @@ public class ErrorAttributes extends DefaultErrorAttributes {
         Throwable error = getError(request);
         if (error instanceof OptimisticLockingFailureException) {
             errorAttributes.put("errorCode", 400);
-            errorAttributes.put("errorMessage","Version mismatch");
+            errorAttributes.put("errorMessage", "Version mismatch");
         } else {
             errorAttributes.put("errorCode", HttpStatus.INTERNAL_SERVER_ERROR);
             errorAttributes.put("errorMessage", "INTERNAL SERVER ERROR");

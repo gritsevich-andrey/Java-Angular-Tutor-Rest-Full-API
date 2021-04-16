@@ -13,6 +13,7 @@ import com.fitness.accountservice.models.payload.SignupResponse;
 import com.fitness.accountservice.repositories.UserRepository;
 import com.fitness.accountservice.services.AuthService;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import org.apache.log4j.Logger;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
@@ -38,7 +39,8 @@ public class AuthServiceImpl implements AuthService {
         String salt = BCrypt.gensalt();
         String hash = BCrypt.hashpw(password, salt);
         String secret = totpManager.generateSecret();
-        User user = new User(null, email, lessonId,  hash, salt, secret, roles);
+
+        User user = new User(null, email, lessonId,  hash, salt, secret, roles, null);
 
         Mono<SignupResponse> response = repository.findByEmail(email)
                 .defaultIfEmpty(user)
@@ -59,7 +61,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public Mono<LoginResponse> login(LoginRequest request) {
+    public Mono<LoginResponse> login(@NonNull LoginRequest request) {
 
         String email = request.getEmail().trim().toLowerCase();
         String password = request.getPassword();

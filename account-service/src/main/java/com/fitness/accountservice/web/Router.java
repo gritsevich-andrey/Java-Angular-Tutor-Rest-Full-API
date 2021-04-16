@@ -15,18 +15,20 @@ public class Router {
     private final MediaType json = MediaType.APPLICATION_JSON;
 
     @Bean
-    public RouterFunction<ServerResponse> authEndpoint (AuthHandler handler){
+    public RouterFunction<ServerResponse> authEndpoint(AuthHandler handler) {
         return RouterFunctions
                 .route(POST("/register").and(accept(json)), handler::signup)
                 .andRoute(POST("/login").and(accept(json)), handler::login);
     }
 
     @Bean
-    public RouterFunction<ServerResponse> usersEndpoint (UsersHandler handler){
+    public RouterFunction<ServerResponse> usersEndpoint(UsersHandler handler) {
         return RouterFunctions
                 .route(GET("/users").and(accept(json)), request -> handler.searchAllUsers())
+                .andRoute(GET("/users/instructors").and(accept(json)), request -> handler.searchAllInstructors())
                 .andRoute(GET("/users/{id}").and(accept(json)), handler::getUserById)
                 .andRoute(PUT("/users/{id}").and(accept(json)), handler::updateUserRole)
+                .andRoute(PUT("/users/profile/{id}").and(accept(json)), handler::updateUserProfile)
                 .andRoute(DELETE("/users/{id}").and(accept(json)), handler::deleteUserById);
     }
 }
