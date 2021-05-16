@@ -9,7 +9,8 @@
         <module>gateway-service</module>
         <module>lesson-service</module>
         <module>instructor-service</module>
-        <module>chat-service</module>
+        <module>private-chat-service</module>
+        <module>inner-chat-service</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

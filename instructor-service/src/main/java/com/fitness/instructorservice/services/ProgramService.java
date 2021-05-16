@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 @Service
 public interface ProgramService {
     Mono<ProgramResponse> createProgram(ProgramRequest request);
-    Flux<ProgramDto> getAllPrograms();
+    Flux<Program> getAllPrograms();
     Mono<Program> findById(String id);
     Mono<Void> deleteById(String id);
     Flux<ProgramResponse> findByCategory(String category);

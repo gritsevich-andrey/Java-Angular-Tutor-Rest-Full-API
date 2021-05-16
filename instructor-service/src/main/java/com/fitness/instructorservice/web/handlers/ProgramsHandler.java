@@ -1,12 +1,11 @@
 package com.fitness.instructorservice.web.handlers;
 
 import com.fitness.instructorservice.dto.ProgramDto;
-import com.fitness.instructorservice.dto.ProgramResponse;
+import com.fitness.instructorservice.dto.ProgramRequest;
 import com.fitness.instructorservice.models.Program;
 import com.fitness.instructorservice.models.ProgramCategory;
 import com.fitness.instructorservice.repository.ProgramRepository;
 import com.fitness.instructorservice.services.ProgramService;
-import com.fitness.instructorservice.dto.ProgramRequest;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

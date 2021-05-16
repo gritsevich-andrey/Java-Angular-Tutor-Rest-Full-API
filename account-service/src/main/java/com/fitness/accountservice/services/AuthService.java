@@ -1,9 +1,9 @@
 package com.fitness.accountservice.services;
 
-import com.fitness.accountservice.models.payload.LoginRequest;
-import com.fitness.accountservice.models.payload.LoginResponse;
-import com.fitness.accountservice.models.payload.SignupRequest;
-import com.fitness.accountservice.models.payload.SignupResponse;
+import com.fitness.accountservice.dto.LoginRequest;
+import com.fitness.accountservice.dto.LoginResponse;
+import com.fitness.accountservice.dto.SignupRequest;
+import com.fitness.accountservice.dto.SignupResponse;
 import reactor.core.publisher.Mono;
 
 public interface AuthService {

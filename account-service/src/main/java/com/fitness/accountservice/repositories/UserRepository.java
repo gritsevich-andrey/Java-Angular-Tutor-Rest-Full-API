@@ -2,7 +2,6 @@ package com.fitness.accountservice.repositories;
 
 import com.fitness.accountservice.models.Role;
 import com.fitness.accountservice.models.User;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;

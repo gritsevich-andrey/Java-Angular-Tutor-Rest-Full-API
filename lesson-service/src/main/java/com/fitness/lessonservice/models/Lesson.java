@@ -5,24 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
 @Document(collection = "lessons")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Lesson {
-    //    @Transient
-//    public static final String SEQUENCE_NAME = "lessons_sequence";
     @Id
     private String id;
     @NotEmpty
@@ -37,11 +31,6 @@ public class Lesson {
     private double cost;
     private boolean paid;
     private boolean held;
-//    @Transient
-//    private List<User> users;
-//    public Lesson(List<User> users) {
-//        this.users = users;
-//    }
 
     public Lesson(String id, String instructorName, String instructorId, String pupilId, double cost, boolean paid, boolean held) {
         this.id = id;

@@ -20,7 +20,7 @@ public class SecurityConfig {
             ServerHttpSecurity http) {
         return http
                 .headers(headers -> headers
-                        .cache(cache -> cache.disable()
+                        .cache(ServerHttpSecurity.HeaderSpec.CacheSpec::disable
                         )
                 )
                 .csrf().disable()
@@ -34,7 +34,6 @@ public class SecurityConfig {
 
 
     }
-    //тестовый юзер - написать свой
     @Bean
     public ReactiveUserDetailsService userDetailsService() {
         UserDetails user =

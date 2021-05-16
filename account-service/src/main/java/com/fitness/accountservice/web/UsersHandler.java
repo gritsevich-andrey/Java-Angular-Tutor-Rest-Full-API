@@ -1,23 +1,19 @@
 package com.fitness.accountservice.web;
 
+import com.fitness.accountservice.dto.SignupRequest;
+import com.fitness.accountservice.dto.SignupResponse;
 import com.fitness.accountservice.models.Role;
 import com.fitness.accountservice.models.User;
-import com.fitness.accountservice.models.UserProfile;
-import com.fitness.accountservice.models.payload.SignupRequest;
-import com.fitness.accountservice.models.payload.SignupResponse;
 import com.fitness.accountservice.repositories.UserRepository;
 import com.fitness.accountservice.services.UserService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.apache.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.lang.invoke.MethodHandles;
 
 
 @Component
@@ -26,7 +22,6 @@ class UsersHandler {
     private final UserRepository userRepository;
     private final static MediaType JSON = MediaType.APPLICATION_JSON;
     private final UserService service;
-    private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass());
 
     public Mono<ServerResponse> searchAllUsers() {
         Flux<User> users = userRepository.findAll();
@@ -38,7 +33,7 @@ class UsersHandler {
     }
 
     public Mono<ServerResponse> searchAllInstructors() {
-        Flux<User> users = userRepository.findAll().filter(u -> u.getRoles().contains(Role.INSTRUCTOR));
+        Flux<User> users = userRepository.findAll().filter(user -> user.getRoles().contains(Role.INSTRUCTOR));
         Mono<ServerResponse> notFound = ServerResponse.notFound().build();
         return ServerResponse.ok()
                 .contentType(JSON)
@@ -61,15 +56,15 @@ class UsersHandler {
     }
 
     public Mono<ServerResponse> updateUserRole(@NonNull ServerRequest request) {
-        Mono<SignupRequest> body = request.bodyToMono(SignupRequest.class);
-        Mono<SignupResponse> result = body.flatMap(service::updateUserRole);
+        Mono<SignupRequest> monoRole = request.bodyToMono(SignupRequest.class);
+        Mono<SignupResponse> result = monoRole.flatMap(service::updateUserRole);
         return result.flatMap(data -> ServerResponse.ok().contentType(JSON).bodyValue(data))
                 .onErrorResume(error -> ServerResponse.badRequest().build());
     }
 
     public Mono<ServerResponse> updateUserProfile(@NonNull ServerRequest request) {
-        Mono<SignupRequest> body = request.bodyToMono(SignupRequest.class);
-        Mono<SignupResponse> result = body.flatMap(service::updateUserProfile);
+        Mono<SignupRequest> monoProfile = request.bodyToMono(SignupRequest.class);
+        Mono<SignupResponse> result = monoProfile.flatMap(service::updateUserProfile);
         return result.flatMap(data -> ServerResponse.ok().contentType(JSON).bodyValue(data))
                 .onErrorResume(error -> ServerResponse.badRequest().build());
     }
@@ -77,6 +72,6 @@ class UsersHandler {
     public Mono<ServerResponse> deleteUserById(@NonNull ServerRequest request) {
         String id = request.pathVariable("id");
         return ServerResponse.ok()
-                .build(userRepository.deleteById(id));
+                .build(userRepository.deleteById(id)).log();
     }
 }

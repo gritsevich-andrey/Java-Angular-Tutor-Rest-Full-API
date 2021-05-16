@@ -25,7 +25,6 @@ public class ProgramReactiveController {
             @RequestParam(name = "page") int page,
                                       @RequestParam(name = "size") int size
     ) {
-        int i = 5;
         return mongoReactiveRepository.findAllByIdOrderByIdAsc(PageRequest.of(1, 5))
                 .delayElements(Duration.ofMillis(DELAY_PER_ITEM_MS));
     }

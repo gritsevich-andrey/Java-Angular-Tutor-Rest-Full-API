@@ -1,9 +1,11 @@
 HELP.md
 target/
+target
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-
+discovery-server.iml
+discovery-server-service.iml
 ### STS ###
 .apt_generated
 .classpath
@@ -12,7 +14,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
-
+.mvn
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -21,7 +23,8 @@ target/
 /.settings/
 /.classpath
 /.project
-
+mvnw
+mvnw.cmd
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

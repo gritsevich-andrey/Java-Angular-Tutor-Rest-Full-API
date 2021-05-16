@@ -1,10 +1,10 @@
 package com.fitness.accountservice.web;
 
 import com.fitness.accountservice.errors.LoginDeniedException;
-import com.fitness.accountservice.models.payload.LoginRequest;
-import com.fitness.accountservice.models.payload.LoginResponse;
-import com.fitness.accountservice.models.payload.SignupRequest;
-import com.fitness.accountservice.models.payload.SignupResponse;
+import com.fitness.accountservice.dto.LoginRequest;
+import com.fitness.accountservice.dto.LoginResponse;
+import com.fitness.accountservice.dto.SignupRequest;
+import com.fitness.accountservice.dto.SignupResponse;
 import com.fitness.accountservice.services.AuthService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +22,13 @@ public class AuthHandler {
     private final AuthService service;
 
     public Mono<ServerResponse> signup(@NonNull ServerRequest request) {
-        Mono<SignupRequest> body = request.bodyToMono(SignupRequest.class);
-        Mono<SignupResponse> result = body.flatMap(service::signup);
+        Mono<SignupRequest> values = request.bodyToMono(SignupRequest.class);
+        Mono<SignupResponse> result = values.flatMap(service::signup);
         return result.flatMap(data -> ServerResponse.ok().contentType(json).bodyValue(data))
                 .onErrorResume(error -> ServerResponse.badRequest().build());
     }
 
-    public Mono<ServerResponse> login(ServerRequest request) {
+    public Mono<ServerResponse> login(@NonNull ServerRequest request) {
         Mono<LoginRequest> body = request.bodyToMono(LoginRequest.class);
         Mono<LoginResponse> result = body.flatMap(service::login);
         return result.flatMap(data -> ServerResponse.ok().contentType(json).bodyValue(data))

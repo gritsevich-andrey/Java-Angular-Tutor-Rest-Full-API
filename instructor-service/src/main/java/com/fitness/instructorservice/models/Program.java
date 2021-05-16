@@ -20,7 +20,6 @@ import java.util.List;
 public class Program extends AbstractDocument<String> implements Serializable {
     @Id
     private String id;
-    @NotBlank
     private String name;
     private String imageSrc;
     @Size(max = 1000)

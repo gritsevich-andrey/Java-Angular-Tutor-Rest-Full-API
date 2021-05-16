@@ -15,7 +15,6 @@ public abstract class AbstractDocument<T> extends AbstractModel implements Seria
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

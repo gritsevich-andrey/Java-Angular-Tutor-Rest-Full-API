@@ -1,10 +1,9 @@
 package com.fitness.accountservice.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotBlank;
-import org.intellij.lang.annotations.Pattern;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -13,10 +12,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Document(collection = "users")
 public class User extends AbstractDocument<String> implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -29,7 +30,6 @@ public class User extends AbstractDocument<String> implements Serializable {
     private String salt;
     private String secretKey;
 
-    //    @DBRef(lazy = true)
     private List<Role> roles = new ArrayList<>();
 
     private UserProfile profile;
@@ -52,5 +52,19 @@ public class User extends AbstractDocument<String> implements Serializable {
     @Override
     public String getId() {
         return this.userId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        User user = (User) o;
+        return Objects.equals(userId, user.userId) && Objects.equals(hash, user.hash) && Objects.equals(salt, user.salt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), userId, hash, salt);
     }
 }

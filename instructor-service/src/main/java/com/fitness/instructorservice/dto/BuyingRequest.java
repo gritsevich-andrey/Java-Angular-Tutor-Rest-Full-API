@@ -1,13 +1,16 @@
 package com.fitness.instructorservice.dto;
 
 import lombok.Data;
+import org.springframework.lang.NonNull;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data
 public class BuyingRequest {
 
     private String customerId;
+    @NotBlank
     private String name;
     private String imageSrc;
     private String description;

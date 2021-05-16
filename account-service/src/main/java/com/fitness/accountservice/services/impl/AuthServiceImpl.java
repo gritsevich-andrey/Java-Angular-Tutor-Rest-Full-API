@@ -6,10 +6,10 @@ import com.fitness.accountservice.managers.TokenManager;
 import com.fitness.accountservice.managers.TotpManager;
 import com.fitness.accountservice.models.Role;
 import com.fitness.accountservice.models.User;
-import com.fitness.accountservice.models.payload.LoginRequest;
-import com.fitness.accountservice.models.payload.LoginResponse;
-import com.fitness.accountservice.models.payload.SignupRequest;
-import com.fitness.accountservice.models.payload.SignupResponse;
+import com.fitness.accountservice.dto.LoginRequest;
+import com.fitness.accountservice.dto.LoginResponse;
+import com.fitness.accountservice.dto.SignupRequest;
+import com.fitness.accountservice.dto.SignupResponse;
 import com.fitness.accountservice.repositories.UserRepository;
 import com.fitness.accountservice.services.AuthService;
 import lombok.AllArgsConstructor;
@@ -33,31 +33,28 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public Mono<SignupResponse> signup(SignupRequest request) {
         String email = request.getEmail().trim().toLowerCase();
-        String lessonId = request.getLessonId();
         List<Role> roles = request.getRoles();
         String password = request.getPassword();
         String salt = BCrypt.gensalt();
         String hash = BCrypt.hashpw(password, salt);
         String secret = totpManager.generateSecret();
+        User user = new User(null, email,  hash, salt, secret, roles, null);
 
-        User user = new User(null, email, lessonId,  hash, salt, secret, roles, null);
-
-        Mono<SignupResponse> response = repository.findByEmail(email)
+        return repository.findByEmail(email)
                 .defaultIfEmpty(user)
                 .flatMap(result -> {
                     if (result.getUserId() == null) {
-                        return repository.save(result).flatMap(result2 -> {
-                            String userId = result2.getUserId();
+                        return repository.save(result).flatMap(newResult -> {
+                            String userId = newResult.getUserId();
                             String token = tokenManager.issueToken(userId);
                             SignupResponse signupResponse = new SignupResponse(userId, token);
-                            log.info("Users save in BD");
                             return Mono.just(signupResponse);
                         });
                     } else {
+                        log.error("Error user signup");
                         return Mono.error(new AlreadyExistsException("Error signup"));
                     }
                 });
-        return response;
     }
 
     @Override
@@ -65,7 +62,7 @@ public class AuthServiceImpl implements AuthService {
 
         String email = request.getEmail().trim().toLowerCase();
         String password = request.getPassword();
-        Mono<LoginResponse> response = repository.findByEmail(email)
+        return repository.findByEmail(email)
                 .defaultIfEmpty(new User())
                 .flatMap(user -> {
                     if (user.getUserId() == null) {
@@ -84,14 +81,15 @@ public class AuthServiceImpl implements AuthService {
                                 loginResponse.setRoles(user.getRoles());
                                 return Mono.just(loginResponse);
                             } else {
-                                return Mono.error(new LoginDeniedException("Error authorization"));
+                                log.error("Ошибка создания пароля");
+                                return Mono.error(new LoginDeniedException("Error BCrypt password"));
                             }
                         } else {
+                            log.info("Ошибка авторизации");
                             return Mono.error(new LoginDeniedException("Error authorization"));
                         }
                     }
                 });
-        return response;
     }
 
     @Override
