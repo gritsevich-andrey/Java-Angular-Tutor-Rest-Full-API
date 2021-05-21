@@ -1,0 +1,23 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - beans
+          - health
+          - metrics
+          - env
+          - info
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetchRegistry: true
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+spring:
+  application:
+    name: account-service

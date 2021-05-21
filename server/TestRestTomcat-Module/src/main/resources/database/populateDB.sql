@@ -1,0 +1,17 @@
+INSERT INTO clients VALUES
+(1, 'Vassily Petrov', 'vpetrov@jr.com', '+7 (191) 322-22-33)'),
+(2, 'Pjotr Vasechkin', 'pvasechkin@jr.com', '+7 (191) 223-33-22)'),
+(3, 'Vassily Petrov', 'vpetrov@jr.com', '+7 (191) 322-22-33)'),
+(4, 'Vassily Petrov', 'vpetrov@jr.com', '+7 (191) 322-22-33)'),
+(5, 'Vassily Petrov', 'vpetrov@jr.com', '+7 (191) 322-22-33)'),
+(6, 'Vassily Petrov', 'vpetrov@jr.com', '+7 (191) 322-22-33)'),
+(7, 'Vassily Petrov', 'vpetrov@jr.com', '+7 (191) 322-22-33)'),
+(8, 'Vassily Petrov', 'vpetrov@jr.com', '+7 (191) 322-22-33)'),
+(9, 'Vassily Petrov', 'vpetrov@jr.com', '+7 (191) 322-22-33)'),
+(10, 'Vassily Petrov', 'vpetrov@jr.com', '+7 (191) 322-22-33)'),
+(11, 'Vassily Petrov', 'vpetrov@jr.com', '+7 (191) 322-22-33)'),
+(2, 'Vassily Petrov', 'vpetrov@jr.com', '+7 (191) 322-22-33)'),
+(13, 'Vassily Petrov', 'vpetrov@jr.com', '+7 (191) 322-22-33)'),
+(14, 'Vassily Petrov', 'vpetrov@jr.com', '+7 (191) 322-22-33)'),
+(15, 'Vassily Petrov', 'vpetrov@jr.com', '+7 (191) 322-22-33)'),
+(16, 'Vassily Petrov', 'vpetrov@jr.com', '+7 (191) 322-22-33)');
