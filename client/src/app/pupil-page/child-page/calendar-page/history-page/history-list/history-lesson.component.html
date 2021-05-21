@@ -1,0 +1,63 @@
+<div class="carousel-container">
+  <input type="text" placeholder="Поиск по дате (xx-xx-xxxx)..." [(ngModel)]="lessonDate"
+         [ngModelOptions]="{standalone: true}" (click)="searchInstructor=''">
+</div>
+
+<div class="card-panel carousel-container">
+  <select name="searchInstructor"
+    [(ngModel)]="searchInstructor"
+  >
+    <optgroup label="Категории">
+      <option value="" disabled>Выберите инструктора</option>
+      <option
+        matTooltip="Сортировка по категориям"
+        matTooltipClass="tooltip-green"
+        *ngFor="let instructorName of lessons | removeduplicate: 'instructorName'"
+        value="{{instructorName}}">{{instructorName}}</option>
+    </optgroup>
+  </select>
+  <div class="left-10">
+    <button mat-mini-fab aria-label="Обновить" alt="Обновить" color="accent"
+            matTooltip="Обновить поиск"
+            matTooltipClass="tooltip-green"
+            class="btn"
+            (click)="searchInstructor='';
+           searchInstructor=''">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
+</div>
+
+<table class="highlight mb2">
+  <thead>
+  <tr>
+    <th>№</th>
+    <th>Инструктор</th>
+    <th>Дата</th>
+    <th>Время</th>
+    <th>Оплачено</th>
+    <th>Проведен</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let lesson of lessons | lessonPipe: lessonDate
+  | searchInstructor: searchInstructor
+   | paginate: {
+      itemsPerPage: 50, currentPage: page,
+       totalItems: totalLength
+       };
+   let i=index">
+    <td>{{i}}</td>
+    <td>{{lesson.instructorName}}</td>
+    <td>{{lesson.date}}</td>
+    <td>{{lesson.time}} </td>
+    <td>{{lesson.cost}} руб.</td>
+    <td>{{lesson.held}}</td>
+  </tr>
+  </tbody>
+</table>
+<div class="auth-block">
+  <pagination-controls class="text-center my-pagination" (pageChange)="page = $event"></pagination-controls>
+</div>

@@ -1,0 +1,33 @@
+<div class="auth-block">
+  <div class="card">
+    <div class="card-content">
+      <form [formGroup]="loginForm">
+        <div class="input-field">
+          <label>E-mail</label>
+          <input type="email" formControlName="email" required />
+          <div  *ngIf="loginForm.get('email').touched && loginForm.get('email').invalid" class="validation">
+          <small class="text-danger" *ngIf="loginForm.get('email').errors.required">Введите Email</small>
+          <small class="text-danger" *ngIf="loginForm.get('email').errors.email">Введите правильный Email</small>
+          </div>
+        </div>
+        <div class="input-field" [ngClass]="{invalid: loginForm.get('password').touched && loginForm.get('password').invalid}">
+            <label>Пароль</label>
+            <input type="password" formControlName="password" required />
+          <div *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid" class="validation">
+            <small class="text-danger" *ngIf="loginForm.get('password').errors.required">Введите пароль</small>
+            <small class="text-danger" *ngIf="loginForm.get('password').errors.minlength">
+              Пароль не меньше  {{loginForm.get('password').errors.minlength.requiredLength}} символов.
+              Сейчас {{loginForm.get('password').errors.minlength.actualLength}}
+            </small>
+          </div>
+        </div>
+        <div class="card-action">
+          <button class="modal-action btn waves-effect" [disabled]="loginForm.invalid" (click)="submit()">
+            Вход
+          </button>
+        </div>
+      </form>
+      <div class="input-field">Нет аккаунта? <a [routerLink]="['/register']">Регистрация</a></div>
+    </div>
+  </div>
+</div>

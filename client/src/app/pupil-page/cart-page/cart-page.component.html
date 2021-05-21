@@ -1,0 +1,47 @@
+<div *ngIf="cartProducts.length > 0; else empty">
+  <h2>Мои желания:</h2>
+  <table class="highlight mb2">
+    <thead>
+    <tr>
+      <th>№</th>
+      <th class="center">Обложка</th>
+      <th class="center">Название</th>
+      <th class="center">Автор</th>
+      <th class="center">Категория</th>
+      <th class="center">Цена</th>
+      <th class="center"></th>
+      <th class="center"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of cartProducts; let i=index">
+      <td>{{i}}</td>
+      <td><img src="{{product.imageSrc}}" style="width: 150px;" alt="Программа"></td>
+      <td>{{product.name}}</td>
+      <td>{{product.instructorName}}</td>
+      <td>{{product.category}}</td>
+      <td>{{product.cost}}</td>
+      <td>
+        <button
+          matTooltip="Купить программу"
+          matTooltipClass="tooltip-green"
+          class="btn btn-dark"
+          (click)="buyProgram(product)"
+        >Купить
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-danger" (click)="delete(product)">Удалить</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <hr>
+  <div class="right">
+    <b>Общая цена: {{totalPrice}} рублей</b>
+    <p></p>
+  </div>
+</div>
+<ng-template #empty>
+  <div class="center">Корзина пуста.</div>
+</ng-template>

@@ -1,0 +1,28 @@
+p {
+  font-size: 0.5rem;
+}
+.card-width {
+  width: 200px;
+}
+.card-role {
+  width: 100px;
+  border: 1px crimson;
+  font-size: 10px;
+}
+   .mat-checkbox .mat-checkbox-frame {
+     border-color: black;
+     background-color: #dddddd
+   }
+
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  margin-top: 1px;
+  margin-left: 1px;
+  width: 18px;
+  height: 18px;
+}
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+input.ng-valid.ng-touched {
+  border: 1px solid green;
+}

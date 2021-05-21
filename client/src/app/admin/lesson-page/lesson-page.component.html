@@ -1,0 +1,39 @@
+<div *ngIf="lesson$ | async as lessons; else empty">
+  <div class="form-control">
+    <input type="text" placeholder="Поиск по дате..." [(ngModel)]="lessonDate" [ngModelOptions]="{standalone: true}">
+  </div>
+
+  <table class="highlight mb2">
+    <thead>
+    <tr>
+      <th>№</th>
+      <th>Инструктор</th>
+      <th>Дата</th>
+      <th>Время</th>
+      <th>Оплачено</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr
+      *ngFor="let lesson of lessons | adminLessonSearch: lessonDate | paginate: {
+      itemsPerPage: 10, currentPage: page,
+       totalItems: totalLength
+       }; let i = index"
+    >
+      <td>{{i+1}}</td>
+      <td>{{lesson.name}}</td>
+      <td>{{lesson.date}}</td>
+      <td>{{lesson.time}} </td>
+      <td>{{lesson.cost}} руб.</td>
+      <td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="auth-block">
+    <pagination-controls class="text-center my-pagination" (pageChange)="page = $event"></pagination-controls>
+  </div>
+</div>
+<ng-template #empty>
+  <app-loader></app-loader>
+</ng-template>

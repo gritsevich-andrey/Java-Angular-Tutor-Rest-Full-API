@@ -1,0 +1,79 @@
+<nav class="navbar bg-dark">
+  <a routerLink=""><h2>FITNESS ASSIST</h2></a>
+  <ul>
+    <li routerLinkActive="active">
+      <a href="#" (click)="logout()">Выход</a>
+    </li>
+  </ul>
+</nav>
+<nav>
+  <ul>
+    <li routerLinkActive="active">
+      <a [routerLink]="['/lessons/instructors']">Найти инструктора</a>
+    </li>
+    <li routerLinkActive="active">
+      <a [routerLink]="['programs']">Найти программу</a>
+    </li>
+    <li routerLinkActive="active">
+      <a [routerLink]="['my-lessons']">Мои уроки</a>
+    </li>
+    <li routerLinkActive="active">
+      <a [routerLink]="['my-programs']">Мои программы</a>
+    </li>
+    <li routerLinkActive="active">
+      <a [routerLink]="['chat']">Чат-инструктор</a>
+    </li>
+    <li routerLinkActive="active">
+      <a [routerLink]="['all-chat']">Общий чат</a>
+    </li>
+    <li routerLinkActive="active">
+      <a [routerLink]="['profile']">Профиль</a>
+    </li>
+  </ul>
+  <div class="p10">
+    <button mat-mini-fab color="accent" aria-label="Мои желания" class="btn right right-5"
+            matTooltip="Мои желания"
+            matTooltipClass="tooltip-green"
+            [routerLink]="['cart']">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <div>
+      <button mat-mini-fab color="accent" class="btn right right-5" [matMenuTriggerFor]="menu" aria-label="Мое обучение"
+              matTooltip="Мое обучение"
+              matTooltipClass="tooltip-green"
+      >
+        <mat-icon>person</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item disabled>
+          <mat-icon>school</mat-icon>
+          <span>Статистика</span>
+        </button>
+        <button class="btn btn-dark" mat-menu-item [routerLink]="['history', 'my-lesson']"
+                matTooltip="История заказанных уроков"
+                matTooltipPosition="left"
+                matTooltipClass="tooltip-green"
+        >
+          <mat-icon>history</mat-icon>
+          <span>Заказы уроков</span>
+        </button>
+        <div>
+          <button class="btn btn-dark" mat-menu-item [routerLink]="['history', 'my-program']"
+                  matTooltip="История заказанных программ"
+                  matTooltipPosition="left"
+                  matTooltipClass="tooltip-green"
+          >
+            <mat-icon>change_history</mat-icon>
+            <span>Заказы программ</span>
+          </button>
+        </div>
+      </mat-menu>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+<div class="sidebar-chat">
+  <!--  <app-chat-page></app-chat-page>-->
+</div>

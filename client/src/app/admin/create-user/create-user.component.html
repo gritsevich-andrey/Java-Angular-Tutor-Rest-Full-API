@@ -1,0 +1,55 @@
+<mat-dialog-content class="mat-typography">
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="auth-block">
+    <div class="card">
+      <div class="card-content">
+  <div
+    class="input-field"
+    [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid}"
+  >
+    <label for="email">Email:</label>
+    <input id="email" type="email" formControlName="email">
+    <div
+      class="validation" [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid}">
+      <small>
+        Введите email
+      </small>
+    </div>
+  </div>
+
+  <div
+    class="input-field" [ngClass]="{invalid: form.get('password').touched && form.get('password').invalid}"
+  >
+    <label for="password">Пароль:</label>
+    <input id="password" type="password" formControlName="password">
+    <div
+      class="validation" *ngIf="form.get('password').touched && form.get('password').invalid">
+      <small>От 6 символов</small>
+    </div>
+  </div>
+  <div>
+    <div class="card-width">
+    <label>Выбрать роль:</label>
+    <select formControlName="role">
+      <option value="ADMIN">Администратор</option>
+      <option value="INSTRUCTOR">Инструктор</option>
+      <option value="PUPIL">Ученик</option>
+    </select>
+    </div>
+
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary card-top"
+      [disabled]="form.invalid"
+    >Создать
+    </button>
+      </div>
+       </div>
+        </div>
+</form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="modal-action btn waves-effect" mat-dialog-close>Выход</button>
+</mat-dialog-actions>

@@ -1,0 +1,44 @@
+<div class="auth-block">
+  <div class="card">
+    <div class="card-content">
+      <form [formGroup]="registerForm">
+        <div class="input-field">
+          <label>E-mail</label>
+          <input type="email" formControlName="email">
+          <div  *ngIf="registerForm.get('email').touched && registerForm.get('email').invalid" class="validation">
+            <small class="text-danger" *ngIf="registerForm.get('email').errors.required">Введите Email</small>
+            <small class="text-danger" *ngIf="registerForm.get('email').errors.email">Введите правильный Email</small>
+          </div>
+        </div>
+        <div class="input-field">
+          <label>Пароль</label>
+          <input type="password" formControlName="password">
+          <div *ngIf="registerForm.get('password').touched && registerForm.get('password').invalid" class="validation">
+            <small class="text-danger" *ngIf="registerForm.get('password').errors.required">Введите пароль</small>
+            <small class="text-danger" *ngIf="registerForm.get('password').errors.minlength">
+              Пароль не меньше  {{registerForm.get('password').errors.minlength.requiredLength}} символов.
+              Сейчас {{registerForm.get('password').errors.minlength.actualLength}}
+            </small>
+          </div>
+        </div>
+        <div class="input-field">
+            <label>Подтверждение</label>
+            <input type="password" formControlName="confirmPassword">
+          <div *ngIf="registerForm.get('confirmPassword').touched && registerForm.get('confirmPassword').invalid" class="validation">
+            <small class="text-danger" *ngIf="registerForm.get('confirmPassword').errors.required">Введите пароль</small>
+            <small class="text-danger" *ngIf="registerForm.get('confirmPassword').errors.minlength">
+              Пароль не меньше  {{registerForm.get('confirmPassword').errors.minlength.requiredLength}} символов.
+              Сейчас {{registerForm.get('confirmPassword').errors.minlength.actualLength}}
+            </small>
+          </div>
+        </div>
+        <div class="card-action">
+          <button class="modal-action btn waves-effect" [disabled]="registerForm.invalid" (click)="submit()">
+            Регистрация
+          </button>
+        </div>
+      </form>
+      <div>Уже зарегистрированы? <a [routerLink]="['/login']">Вход</a></div>
+    </div>
+  </div>
+</div>

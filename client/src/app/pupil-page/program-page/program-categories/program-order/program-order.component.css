@@ -1,0 +1,17 @@
+.carousel-container {
+  display: flex;
+  margin-left: 0;
+  margin-right: auto;
+  width: 90%;
+
+}
+.btn-bottom{
+  margin-bottom: 10px;
+  position: relative;
+}
+.program{
+  display: block;
+  max-width: 280px;
+  padding-right: 25px;
+  padding-bottom: 30px;
+}

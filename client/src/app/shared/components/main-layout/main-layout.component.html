@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Fitness-Assist</title>
+</head>
+<body>
+<nav class="navbar bg-dark">
+  <h2>FITNESS ASSIST</h2>
+
+  <ul *ngIf="!isVisible">
+    <li routerLinkActive="active">
+      <a [routerLink]="['/lessons/programs']">Уроки</a>
+    </li>
+    <li routerLinkActive="active">
+      <a href="#" (click)="logout()">Выход</a>
+    </li>
+  </ul>
+
+  <ul *ngIf="isVisible">
+    <li routerLinkActive="active">
+      <a [routerLink]="['/register']">Регистрация</a>
+    </li>
+    <li routerLinkActive="active">
+      <a [routerLink]="['/login']">Вход</a>
+    </li>
+  </ul>
+</nav>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="footer">
+<mat-toolbar class="bg-dark">
+  <mat-toolbar-row>
+    <span></span>
+    <span class="spacer"></span>
+    <button mat-icon-button class="btn icon favorite-icon" aria-label="icon-button with heart icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button class="btn icon" aria-label="icon-button with share icon">
+      <mat-icon>share</mat-icon>
+    </button>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+  <span class="spacer"></span>
+  <h3>© Copyright Fitness-assist 2021.</h3>
+  <span class="spacer"></span>
+  </mat-toolbar-row>
+</mat-toolbar>
+</div>
+</body>
+</html>

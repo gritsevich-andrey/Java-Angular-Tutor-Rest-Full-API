@@ -1,0 +1,39 @@
+<div class="auth-block">
+  <div class="card">
+    <div class="card-content">
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="input-field"
+             [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid}"
+        >
+          <label for="email">Email:</label>
+          <input id="email" type="email" formControlName="email">
+          <div  *ngIf="form.get('email').touched && form.get('email').invalid" class="validation">
+            <small class="text-danger" *ngIf="form.get('email').errors.required">Введите Email</small>
+            <small class="text-danger" *ngIf="form.get('email').errors.email">Введите правильный Email</small>
+          </div>
+        </div>
+
+        <div class="input-field"
+        >
+          <label for="password">Пароль:</label>
+          <input id="password" type="password" formControlName="password">
+          <div *ngIf="form.get('password').touched && form.get('password').invalid" class="validation">
+            <small class="text-danger" *ngIf="form.get('password').errors.required">Введите пароль</small>
+            <small class="text-danger" *ngIf="form.get('password').errors.minlength">
+              Пароль не меньше  {{form.get('password').errors.minlength.requiredLength}} символов.
+              Сейчас {{form.get('password').errors.minlength.actualLength}}
+            </small>
+          </div>
+        </div>
+        <div class="card-action">
+          <button
+            type="submit"
+            class="modal-action btn waves-effect"
+            [disabled]="form.invalid"
+          >Войти
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

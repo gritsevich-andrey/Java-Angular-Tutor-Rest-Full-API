@@ -1,0 +1,13 @@
+.right-5 {
+  margin-right: 10px;
+}
+.sidebar-chat {
+  display: flex;
+  position: fixed;
+  /*max-height: 500px;*/
+  bottom: 0;
+  right: 10px;
+  max-width: 300px;
+  border: 0px solid #f1f1f1;
+  z-index: 9;
+}

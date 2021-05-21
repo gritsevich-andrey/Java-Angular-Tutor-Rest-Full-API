@@ -1,0 +1,43 @@
+<div>
+  <div class="row">
+    <div class="collection">
+      <div class="p10"><h3>{{nickname}}</h3>
+        <button mat-mini-fab color="accent" aria-label="Сменить логин" class="btn left-5" (click)="logout()"
+                matTooltip="Сменить логин"
+                matTooltipClass="tooltip-green"
+        >
+          <mat-icon>logout</mat-icon>
+        </button>
+        <button mat-mini-fab color="accent" aria-label="Добавить комнату" class="btn left-5"
+                [routerLink]="['/lessons', 'chat', 'addroom']"
+                matTooltip="Добавить комнату"
+                matTooltipClass="tooltip-green"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="example-loading-shade"
+       *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="!isLoadingResults; else reloadingBlock"></mat-spinner>
+  </div>
+
+  <div>
+    <table mat-table [dataSource]="rooms"
+           matSort matSortActive="roomname" matSortDisableClear matSortDirection="asc">
+
+      <!-- Room Name Column -->
+      <ng-container matColumnDef="roomname">
+        <th mat-header-cell *matHeaderCellDef>Выберите личную комнату инструктора, чтобы получить информацию</th>
+        <td mat-cell *matCellDef="let row">{{row.roomname}}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr class="collection-item" mat-row *matRowDef="let row; columns: displayedColumns;"
+          (click)="enterChatRoom(row.roomname)"></tr>
+    </table>
+  </div>
+</div>
+<ng-template #reloadingBlock>
+  <app-loader></app-loader>
+</ng-template>
