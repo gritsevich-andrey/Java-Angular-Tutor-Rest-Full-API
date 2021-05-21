@@ -1,0 +1,104 @@
+<div *ngIf="programs$ | async as programs; else empty">
+  <div *ngIf="!reloading; else reloadingBlock" class="carousel-container">
+    <input type="text" placeholder="Поиск по названию..." [(ngModel)]="programName"
+           (click)="searchCategory='';
+           searchInstructor=''"
+    >
+  </div>
+  <div class="card-panel carousel-container">
+    <select name="searchCategory"
+            [(ngModel)]="searchCategory"
+    >
+      <optgroup label="Категории">
+        <option value="" disabled>Выберите категорию</option>
+        <option
+          matTooltip="Сортировка по категориям"
+          matTooltipClass="tooltip-green"
+          *ngFor="let category of programs | removeduplicate : 'category'"
+          value="{{category}}">{{category}}</option>
+      </optgroup>
+    </select>
+    <select name="searchInstructor"
+      [(ngModel)]="searchInstructor"
+    >
+      <optgroup label="Инструктор">
+        <option value="" disabled>Выберите инструктора</option>
+        <option
+          *ngFor="let instructorName of programs | removeduplicate : 'instructorName'"
+          value="{{instructorName}}">{{instructorName}}</option>
+      </optgroup>
+    </select>
+    <div class="left-10">
+      <button mat-mini-fab aria-label="Обновить" alt="Обновить" color="accent"
+              matTooltip="Обновить поиск"
+              matTooltipClass="tooltip-green"
+              class="btn"
+              (click)="searchCategory='';
+           searchInstructor=''">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div
+    class="frow order-row">
+    <div
+      *ngFor="let program of programs
+      | search: programName | filter: searchCategory
+      | searchInstructor: searchInstructor
+       | paginate: {
+      itemsPerPage: 12, currentPage: page,
+       totalItems: totalLength
+       }"
+      class="program"
+    >
+      <div class="center">
+        <img [src]="program.imageSrc" alt="Список обучающих программ" class="responsive-img order-img">
+      </div>
+      <div class="card-content center p10">
+        <h5 class="m0">{{program.name}}</h5>
+      </div>
+      <div class="card-content center p10">
+        <span class="m0">Автор: {{program.instructorName}}</span>
+      </div>
+      <div class="card-content center p10">
+        <span class="m0">Категория: {{program.category}}</span>
+      </div>
+      <div class="card-content center p10">
+        <span class="m0">Цена: {{program.cost}} руб</span>
+      </div>
+      <div class="card-content center p10">
+        <button
+          matTooltip="Подробнее о программе"
+          matTooltipClass="tooltip-green"
+          class="btn green-snackbar"
+          [routerLink]="['/lessons', 'programs', program.id]">Подробнее
+        </button>
+      </div>
+      <div class="card-content center p10">
+        <button
+          matTooltip="Купить программу"
+          matTooltipClass="tooltip-green"
+          class="btn btn-dark"
+          (click)="buyProgram(program)"
+        >Купить
+        </button>
+        <button mat-mini-fab color="accent" aria-label="В корзину" class=" btn right"
+                title="Добавить в мои желания"
+                matTooltip="Добавить в мои желания"
+                matTooltipClass="tooltip-green"
+                (click)="addProduct(program)">
+          <mat-icon>favorite</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="auth-block">
+    <pagination-controls class="text-center my-pagination" (pageChange)="page = $event"></pagination-controls>
+  </div>
+</div>
+<ng-template #empty>
+  <div class="center">Программ нет.</div>
+</ng-template>
+<ng-template #reloadingBlock>
+  <app-loader></app-loader>
+</ng-template>

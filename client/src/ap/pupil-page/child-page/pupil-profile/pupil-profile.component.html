@@ -1,0 +1,58 @@
+<div class="profile-block container">
+  <div class="card">
+    <div class="card-content">
+
+      <div class="row">
+        <div class="col s12 center">
+          <img id="avatar" src="/assets/user-placeholder.jpg" alt="placeholder">
+        </div>
+
+        <div class="col s12 l12 center">
+          <div>
+            <button class="waves-effect waves-light btn orange lighten-2 mb2">
+              <i class="material-icons left">backup</i>
+              Загрузить изображение
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <form [formGroup]="profileForm">
+        <div class="input-field"
+             [ngClass]="{invalid: profileForm.get('email').touched && profileForm.get('email').invalid, active: profileForm.get('email').touched}">
+          <label [ngClass]="{active: profileForm.get('email').touched}">E-mail</label>
+          <input type="email" formControlName="email" readonly>
+        </div>
+
+        <div class="input-field"
+             [ngClass]="{invalid: profileForm.get('name').touched && profileForm.get('name').invalid, active: profileForm.get('name').touched}">
+          <label [ngClass]="{active: profileForm.get('name').touched}">Имя</label>
+          <input type="text" formControlName="name">
+        </div>
+        <div class="input-field"
+             [ngClass]="{invalid: profileForm.get('surname').touched && profileForm.get('surname').invalid, active: profileForm.get('surname').touched}">
+          <label [ngClass]="{active: profileForm.get('surname').touched}">Фамилия</label>
+          <input type="text" formControlName="surname">
+        </div>
+
+        <div class="input-field"
+             [ngClass]="{invalid: profileForm.get('tel').touched && profileForm.get('tel').invalid}">
+          <label [ngClass]="{active: profileForm.get('tel').touched}">Номер телефона</label>
+          <input type="tel" formControlName="tel">
+        </div>
+
+        <div *ngIf="isDescription" class="input-field"
+             [ngClass]="{invalid: profileForm.get('description').touched && profileForm.get('description').invalid}">
+          <label [ngClass]="{active: profileForm.get('description').touched}">Описание</label>
+          <textarea type="text" class="materialize-textarea" formControlName="description"></textarea>
+        </div>
+
+        <div class="card-action">
+          <button class="modal-action btn waves-effect" [disabled]="profileForm.invalid" (click)="submit()">
+            Сохранить настройки
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

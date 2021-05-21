@@ -1,0 +1,34 @@
+<div
+  *ngIf="program | async as program"
+  class="container-program"
+>
+  <pre>
+  <!-- Left Column --></pre>
+  <div class="left-column">
+    <img [src]="program.imageSrc">
+  </div>
+  <pre>
+
+  <!-- Right Column --></pre>
+  <div class="right-column card-panel"><!-- Product Description -->
+    <h2>{{program.name}}</h2>
+    <div class="product-description">
+      {{program.description}}</div>
+    <!-- Product Configuration -->
+    <div class="product-configuration">
+      <div class="product-color">
+        <div class="card-header">Категория: {{program.category}}</div>
+        <div class="card-header">Автор: {{program.instructorName}}</div>
+        <div class="card-header"><b>Цена:</b> {{program.cost}} руб.</div>
+      </div>
+      <!-- Product Pricing -->
+      <div class="product-price">
+        <button class="btn btn-dark"
+                title="Добавить в мои желания"
+                matTooltip="Добавить в мои желания"
+                matTooltipClass="tooltip-green"
+                (click)="addProduct(program)">В мои желания</button>
+      </div>
+    </div>
+  </div>
+</div>

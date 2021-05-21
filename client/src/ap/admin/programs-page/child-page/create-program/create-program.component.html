@@ -1,0 +1,93 @@
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="auth-block">
+      <div class="card">
+        <div class="card-content">
+          <div
+            class="input-field"
+            [ngClass]="{invalid: form.get('name').touched && form.get('name').invalid}"
+          >
+            <label for="name">Название:</label>
+            <input id="name" type="text" formControlName="name">
+            <div
+              class="validation" [ngClass]="{invalid: form.get('name').touched && form.get('name').invalid}">
+              <small>
+                Введите название программы
+              </small>
+            </div>
+
+            <div
+              class="input-field" [ngClass]="{invalid: form.get('imageSrc').touched && form.get('imageSrc').invalid}"
+            >
+              <label for="imageSrc">Ссылка на изображение:</label>
+              <input id="imageSrc" type="text" formControlName="imageSrc">
+              <div
+                class="validation" *ngIf="form.get('imageSrc').touched && form.get('imageSrc').invalid">
+                <small>Адрес изображения программы</small>
+              </div>
+            </div>
+
+          </div>
+            <div class="card-width">
+              <label>Выбрать категорию:</label>
+              <select formControlName="category">
+                <option value="Фитнес">Фитнес</option>
+                <option value="Бодибилдинг">Бодибилдинг</option>
+                <option value="Пилатес">Пилатес
+                <option value="Йога">Йога</option>
+                <option value="Пластика">Пластика</option>
+                <option value="Аэробика">Аэробика</option>
+                <option value="Танец">Танец</option>
+              </select>
+            </div>
+
+          <div
+            class="input-field" [ngClass]="{invalid: form.get('description').touched && form.get('description').invalid}"
+          >
+            <label for="description">Описание программы</label>
+            <input id="description" type="text" formControlName="description">
+            <div
+              class="validation" *ngIf="form.get('description').touched && form.get('description').invalid">
+              <small>Краткое описание программы</small>
+            </div>
+          </div>
+
+          <div
+            class="input-field" [ngClass]="{invalid: form.get('instructorName').touched && form.get('instructorName').invalid}"
+          >
+            <label for="instructorName">ФИО инструктора</label>
+            <input id="instructorName" type="text" formControlName="instructorName">
+            <div
+              class="validation" *ngIf="form.get('instructorName').touched && form.get('instructorName').invalid">
+              <small>Фамилия имя отчество</small>
+            </div>
+          </div>
+
+          <div
+            class="input-field" [ngClass]="{invalid: form.get('cost').touched && form.get('cost').invalid}"
+          >
+            <label for="cost">Стоимость программы (руб)</label>
+            <input id="cost" type="text" formControlName="cost">
+            <div
+              class="validation" *ngIf="form.get('cost').touched && form.get('cost').invalid">
+              <small>в росийских рублях</small>
+            </div>
+          </div>
+
+
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary card-top"
+            [disabled]="form.invalid"
+          >Создать
+          </button>
+        </div>
+      </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="modal-action btn waves-effect" mat-dialog-close>Выход</button>
+</mat-dialog-actions>
+

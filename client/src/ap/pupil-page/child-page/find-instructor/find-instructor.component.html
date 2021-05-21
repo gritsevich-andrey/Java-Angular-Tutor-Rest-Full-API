@@ -1,0 +1,34 @@
+<div *ngIf="ts.getUser()" class="container">
+  <div class="card row" *ngFor="let instructor of instructors;">
+    <div class="col s4">
+      <img class="avatar" src="/assets/user-placeholder.jpg" alt="placeholder">
+    </div>
+    <div class="col s1">
+
+    </div>
+    <div class="col s6 description">
+      <h5>Характеристика</h5>
+      <div>
+        {{instructor.profile?.description}}
+      </div>
+    </div>
+    <div class="col s1">
+
+    </div>
+    <div class="card-width">
+      <span>{{instructor.email | titlecase}}</span>
+    </div>
+    <div class="card-width">
+      <span>{{instructor.roles}}</span>
+    </div>
+    <div class="card-width">
+      <span>{{instructor.profile?.name | titlecase}}</span>
+      <br/>
+      <span>{{instructor.profile?.surname | titlecase}}</span>
+    </div>
+    <button class="btn btn-dark" (click)="registerLessonOrder(instructor)">Заказать урок</button>
+  </div>
+</div>
+<ng-template #reloadingBlock>
+  <app-loader></app-loader>
+</ng-template>

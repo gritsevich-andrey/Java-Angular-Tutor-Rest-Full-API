@@ -1,0 +1,41 @@
+
+
+<div class="card-action">
+  <button class="modal-action btn btn-danger" (click)="openDialog()">Создать
+  </button>
+
+  <div class="auth-block">
+    <form [formGroup]="form">
+      <div class="form-control">
+        <input type="text" placeholder="Поиск по email..." [(ngModel)]="userEmail" [ngModelOptions]="{standalone: true}">
+      </div>
+      <div *ngFor="let user of users | search: userEmail | paginate: {
+      itemsPerPage: 10, currentPage: page,
+       totalItems: totalLength
+       }; let i=index">
+        <div class="card-header">
+          <div class="p10">{{i}}</div>
+          <div class="card-width">
+            <span [class.completed]="user.email">{{user.email}}</span>
+          </div>
+          <div class="card-role">
+            <span [class.completed]="user.roles">{{user.roles}}</span>
+          </div>
+          <button class="btn btn-danger" (click)="removeUser(user.userId)">Удалить</button>
+          <button class="btn btn-success" [routerLink]="">Инфо</button>
+          <div>
+            <select formControlName="role">
+              <option value="ADMIN">Администратор</option>
+              <option value="INSTRUCTOR">Инструктор</option>
+              <option value="PUPIL">Ученик</option>
+            </select>
+          </div>
+          <button class="modal-action btn waves-effect" (click)="updateRole(user.userId)">Изменить</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="auth-block">
+    <pagination-controls class="text-center my-pagination" (pageChange)="page = $event"></pagination-controls>
+  </div>
+</div>

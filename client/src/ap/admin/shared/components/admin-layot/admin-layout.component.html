@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title>Панель администратора</title>
+</head>
+<body>
+<nav class="navbar bg-dark">
+  <h2>
+    <a routerLink="/">FITNESS ASSIST</a>
+  </h2>
+  <ul>
+    <li *ngIf="tokenStorageService.getUser()" routerLinkActive="active">
+      <a [routerLink]="['/admin', 'dashboard']">Дашбоард</a>
+    </li>
+    <li>
+      <a href="#" (click)="logout()">Выйти</a>
+    </li>
+  </ul>
+</nav>
+<ul *ngIf="tokenStorageService.getUser()" class="sidenav sidenav-fixed a-sidenav">
+  <li
+    class="bold"
+    *ngFor="let link of links"
+    routerLinkActive="active"
+  >
+    <a [routerLink]="[link.url]" class="waves-effect waves-orange">
+      {{link.name}}
+    </a>
+  </li>
+</ul>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+</body>
+</html>
